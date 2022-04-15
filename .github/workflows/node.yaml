@@ -1,0 +1,30 @@
+name: Setup node
+on:
+  push:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: build
+        run:
+          echo "{{matrix.platform}} {{matrix.profile}} ${{ matrix.stack }}"
+      - name: Setup Node.js v14
+        uses: actions/setup-node@v2.5.0
+        with:
+          node-version: 14.18.2
+      - name: Run build.sh Script
+        run: |
+          set -x 
+          echo "=============================================="
+          npm ls -g --depth 0 || echo "" | grep typescript
+          echo "=============================================="
+          npm uninstall typescript -g
+          echo "=============================================="
+          npm ls -g --depth 0 || echo "" | grep typescript
+          echo "=============================================="
+          npm ls --depth 0 || echo "" | grep typescript
+          echo "=============================================="
+          npm uninstall typescript
+          echo "=============================================="
+          npm ls --depth 0 || echo "" | grep typescript
