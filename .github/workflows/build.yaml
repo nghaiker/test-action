@@ -1,0 +1,49 @@
+name: build
+
+on:
+  workflow_dispatch:
+    inputs:
+      build_linux:
+        description: "build linux desktop"
+        type: boolean
+        required: true
+        default: false
+      build_mac:
+        description: "build mac desktop"
+        type: boolean
+        required: true
+        default: false
+      build_win:
+        description: "build windows desktop"
+        type: boolean
+        required: true
+        default: false
+      build_w32:
+        description: "build win32 desktop"
+        type: boolean
+        required: true
+        default: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        project: ["desktop", "multiview"]
+        include:
+          - platform: build_win
+            run: "${{ github.event.inputs.build_win == 'true' }}"
+          - platform: build_linux
+            run: "${{ github.event.inputs.build_linux == 'true' }}"
+          - platform: build_w32
+            run: "${{ github.event.inputs.build_w32 == 'true' }}"
+
+    name: "${{matrix.platform}} ${{matrix.project}}"
+    steps:
+      - name: build
+        if: "${{matrix.run}}"
+        run: |
+          echo "${{matrix.platform}} ${{matrix.run}}"
+          echo "${{ github.event.inputs.build_linux }}"
+          echo "${{ github.event.inputs.build_win }}"
+          echo "${{ github.event.inputs.build_win32 }}"
