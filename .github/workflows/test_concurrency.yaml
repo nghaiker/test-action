@@ -1,0 +1,17 @@
+name: test concurrency
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+jobs:
+  test_concurrency:
+    concurrency:
+      group: ${{ github.ref }}
+      cancel-in-progress: true
+    runs-on: ubuntu-18.04
+    steps:
+      - name: show
+        run: date
