@@ -44,6 +44,6 @@ jobs:
         if: "${{matrix.run}}"
         run: |
           echo "${{matrix.platform}} ${{matrix.run}}"
-          echo "${{ github.event.inputs.build_linux }}"
-          echo "${{ github.event.inputs.build_win }}"
-          echo "${{ github.event.inputs.build_win32 }}"
+          echo "${{ github.event.inputs.build_linux == true }}"
+          echo "${{ github.event.inputs.build_win == true }}"
+          echo "${{ github.event.inputs.build_win32 == true }}"

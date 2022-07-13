@@ -7,16 +7,16 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        platform: [ win, linux, win32 ]
-        stack: [ app, staging, staging2 ]
-        profile: [ aliyun-prod, default ]
+        platform: [win, linux, win32]
+        stack: [app, staging, staging2]
+        profile: [aliyun-prod, default]
         exclude:
           - stack: staging2
             profile: default
           - stack: staging
             profile: aliyun-prod
-    if: "false"
     steps:
       - name: build
-        run:
-          echo "{{matrix.platform}} {{matrix.profile}} ${{ matrix.stack }}"
+        run: |
+          echo "${{matrix.platform}} ${{matrix.profile}} ${{ matrix.stack }}"
+          echo "win = ${{matrix.platform == 'win'}}"
